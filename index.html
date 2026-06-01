@@ -1,0 +1,692 @@
+﻿﻿<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth text-[17px] md:text-[18px]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Комплексная диагностика | Психологические услуги</title>
+    <meta name="description" content="Психологическая диагностика. Узнайте, кто вы на самом деле.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFFFFF',    /* Белый для текста на темном фоне */
+                        secondary: '#CBD5E1',  /* Светло-серый для второстепенного текста */
+                        brand: '#2DD4BF',      /* Бирюзовый для акцентов и кнопок */
+                        accent: '#FBBF24',     /* Золотистый акцент */
+                        background: '#0A1628'  /* Базовый темно-синий (для fallback) */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'Playfair Display', 'Georgia', 'serif'],
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+                        'glass-hover': '0 12px 40px 0 rgba(0, 0, 0, 0.4)'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="text-primary font-sans antialiased selection:bg-brand selection:text-[#111827] overflow-x-hidden relative">
+    
+    <!-- Fixed Premium Background Gradient -->
+    <div class="fixed inset-0 z-[-2] bg-gradient-to-b from-[#0A1628] via-[#113860] to-[#1A5F9A]"></div>
+
+    <!-- Global decorative blobs in background -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none opacity-40">
+        <div class="absolute top-1/4 -right-64 w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.2)_0,transparent_70%)] rounded-full animate-blob"></div>
+        <div class="absolute bottom-1/4 -left-64 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.15)_0,transparent_60%)] rounded-full animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Premium Noise Texture -->
+    <div class="bg-noise" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300 backdrop-blur-xl bg-[#0A1628]/40 border-b border-white/10" id="header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <img class="h-12 w-auto object-contain" src="img/logo.png" alt="Логотип" fetchpriority="high" onerror="this.src='https://placehold.co/150x50/e2e8f0/8F9B9A?text=Логотип'">
+                </div>
+                <nav class="hidden lg:flex space-x-8" aria-label="Основная навигация">
+                    <a href="#about" class="text-secondary hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-sm px-1 py-0.5">Вам это знакомо?</a>
+                    <a href="#results" class="text-secondary hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-sm px-1 py-0.5">Результат</a>
+                    <a href="#fragments" class="text-secondary hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-sm px-1 py-0.5">Фрагменты</a>
+                    <a href="#process" class="text-secondary hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-sm px-1 py-0.5">Процесс</a>
+                </nav>
+                <div class="hidden md:flex items-center">
+                    <a href="https://vk.com/" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 rounded-full text-sm font-medium text-[#111827] bg-brand hover:bg-brand/90 transition-all duration-300 shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand">
+                        Записаться
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="Открыть меню" class="text-white hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-md p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu (Fixed Absolute Overlay) -->
+        <div id="mobile-menu" class="fixed inset-x-0 top-20 bg-[#0A1628]/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl transition-all duration-300 opacity-0 invisible -translate-y-4" aria-hidden="true">
+            <div class="px-4 pt-4 pb-6 space-y-2 sm:px-6">
+                <a href="#about" class="block px-4 py-3 rounded-xl text-base font-medium text-white hover:text-brand hover:bg-white/5 transition-colors">Вам это знакомо?</a>
+                <a href="#results" class="block px-4 py-3 rounded-xl text-base font-medium text-white hover:text-brand hover:bg-white/5 transition-colors">Результат</a>
+                <a href="#fragments" class="block px-4 py-3 rounded-xl text-base font-medium text-white hover:text-brand hover:bg-white/5 transition-colors">Фрагменты</a>
+                <a href="#process" class="block px-4 py-3 rounded-xl text-base font-medium text-white hover:text-brand hover:bg-white/5 transition-colors">Процесс</a>
+                <div class="pt-4 mt-2 border-t border-white/10">
+                    <a href="https://vk.com/" target="_blank" rel="noopener noreferrer" class="block w-full text-center px-4 py-3 rounded-xl text-base font-medium text-[#111827] bg-brand hover:bg-brand/90 transition-colors shadow-md">Записаться</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-[100svh]">
+            <!-- Decorative Dots Pattern (Left) -->
+            <div class="absolute top-1/4 left-[5%] w-48 h-48 bg-dot-pattern opacity-80 animate-float pointer-events-none z-20 hidden lg:block" style="-webkit-mask-image: radial-gradient(circle, black 50%, transparent 100%);"></div>
+            
+            <!-- Decorative Dots Pattern (Right) -->
+            <div class="absolute bottom-1/4 right-[5%] w-48 h-48 bg-dot-pattern opacity-60 animate-float-delayed pointer-events-none z-20 hidden lg:block" style="-webkit-mask-image: radial-gradient(circle, black 50%, transparent 100%);"></div>
+
+            <!-- Background Hero Image -->
+            <div class="absolute inset-0 z-0">
+                <img src="img/hero.png" alt="Свой путь" class="w-full h-full object-cover">
+                <!-- Overlay для легкого затемнения и лучшей читаемости текста -->
+                <div class="absolute inset-0 bg-black/20 mix-blend-multiply"></div>
+                <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0A1628] to-transparent"></div>
+            </div>
+            
+            <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <!-- Abstract gradients optimized for GPU -->
+                <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.15)_0,transparent_60%)] rounded-full animate-blob"></div>
+                <div class="absolute top-1/4 -left-32 w-[900px] h-[900px] bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.1)_0,transparent_60%)] rounded-full animate-blob animation-delay-2000"></div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center fade-in-up w-full">
+                <h1 class="text-[clamp(3rem,5.5vw,5rem)] font-serif text-white tracking-tight mb-6 leading-tight drop-shadow-md">
+                    Комплексная <br><span class="text-brand italic">диагностика личности</span>
+                </h1>
+                <div class="max-w-3xl mx-auto bg-white/70 backdrop-blur-[40px] saturate-150 p-6 sm:p-8 rounded-3xl border border-white/90 shadow-[0_8px_32px_0_rgba(0,0,0,0.15),inset_0_1px_0_0_rgba(255,255,255,0.8),inset_0_0_20px_rgba(255,255,255,0.5)]">
+                    <p class="text-[clamp(1.125rem,2.5vw,1.25rem)] text-gray-900 font-medium leading-relaxed drop-shadow-sm">
+                        У каждого человека в жизни есть только одна цель — реализовать свои потенциальные возможности. Но развитие не происходит автоматически, мы не растём, как деревья — просто по факту времени. Комплексное исследование — это инструмент ясности, который показывает как устроены именно вы и где находятся ваши реальные возможности. Чтобы действовать не вслепую, а осознанно и точно. Человек может быть счастлив только будучи собой.
+                    </p>
+                </div>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://vk.com/" target="_blank" class="btn-premium px-8 py-4 text-base font-medium rounded-full text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand">
+                        Записаться на диагностику
+                    </a>
+                    <a href="#process" class="btn-premium px-8 py-4 text-base font-medium rounded-full text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand">
+                        Как это работает
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Familiar / Pain points -->
+        <section id="about" class="py-32 relative content-section overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-20 fade-in-scroll">
+                    <h2 class="text-[clamp(2.25rem,4.5vw,3rem)] font-serif text-white mb-6">Вам это знакомо?</h2>
+                    <div class="w-16 h-1 bg-brand/60 mx-auto rounded-full"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Item 1 -->
+                    <div class="glass-card p-8 rounded-3xl fade-in-scroll hover-lift" style="--animation-order: 1;">
+                        <div class="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 border border-white/10 shadow-lg relative overflow-hidden group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent opacity-50"></div>
+                            <svg class="w-7 h-7 text-brand relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-medium mb-3 text-white">Чувство неопределенности</h3>
+                        <p class="text-secondary text-base md:text-lg leading-relaxed">Вы замерли и откладываете жизнь на потом, потому что любой выбор кажется фатальной ошибкой. Это изматывающее состояние «зависания», когда старые способы больше не работают.</p>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="glass-card p-8 rounded-3xl fade-in-scroll hover-lift" style="--animation-order: 2;">
+                        <div class="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 border border-white/10 shadow-lg relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent opacity-50"></div>
+                            <svg class="w-7 h-7 text-brand relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-medium mb-3 text-white">Цель вроде есть, а энергии нет</h3>
+                        <p class="text-secondary text-base md:text-lg leading-relaxed">План действий готов, но внутри — пустота и сопротивление. Каждое простое действие требует огромных волевых усилий, а вместо движения вы выбираете прокрастинацию.</p>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="glass-card p-8 rounded-3xl fade-in-scroll hover-lift" style="--animation-order: 3;">
+                        <div class="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 border border-white/10 shadow-lg relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent opacity-50"></div>
+                            <svg class="w-7 h-7 text-brand relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-medium mb-3 text-white">Хотите кардинальных перемен</h3>
+                        <p class="text-secondary text-base md:text-lg leading-relaxed">Вы чувствуете, что переросли свою нынешнюю жизнь, но застряли в «старой коже». Вас тянет к изменениям, но парализует страх потерять всё достигнутое.</p>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="glass-card p-8 rounded-3xl fade-in-scroll hover-lift" style="--animation-order: 4;">
+                        <div class="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 border border-white/10 shadow-lg relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent opacity-50"></div>
+                            <svg class="w-7 h-7 text-brand relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-medium mb-3 text-white">Кризис середины жизни</h3>
+                        <p class="text-secondary text-base md:text-lg leading-relaxed">Ощущение, что вы идете не по своей дороге, не дает дышать. Вроде бы всё на месте, но эта жизнь вам «не по размеру», а неизвестность «нового» держит на месте.</p>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="glass-card p-8 rounded-3xl fade-in-scroll hover-lift" style="--animation-order: 5;">
+                        <div class="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 border border-white/10 shadow-lg relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent opacity-50"></div>
+                            <svg class="w-7 h-7 text-brand relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-medium mb-3 text-white">Запутались в целях</h3>
+                        <p class="text-secondary text-base md:text-lg leading-relaxed">Вы хватаетесь за всё сразу. Чужие ожидания и навязанные «надо» настолько перемешались с истинными желаниями, что вы перестали понимать, куда тратить силы.</p>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="glass-card p-8 rounded-3xl fade-in-scroll hover-lift" style="--animation-order: 6;">
+                        <div class="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 border border-white/10 shadow-lg relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent opacity-50"></div>
+                            <svg class="w-7 h-7 text-brand relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-medium mb-3 text-white">Потеря смысла</h3>
+                        <p class="text-secondary text-base md:text-lg leading-relaxed">Раньше ваши достижения приносили драйв, а теперь всё кажется пустой декорацией. Вы словно живете на автопилоте, не понимая, ради чего всё это затевалось.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What you will get -->
+        <section id="results" class="py-32 relative content-section overflow-hidden bg-black/10 border-y border-white/5 shadow-2xl backdrop-blur-sm">
+            <!-- Decorative floating image (Abstract Spheres) -->
+            <div class="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 opacity-30 pointer-events-none z-0">
+                <img src="img/abstract.png" alt="Абстрактные формы" class="w-[350px] h-[500px] object-contain mix-blend-screen rotate-6">
+            </div>
+            
+            <div class="hidden lg:block absolute left-0 top-1/4 -translate-y-1/2 -translate-x-1/4 opacity-30 pointer-events-none z-0">
+                <img src="img/abs1_left.png" alt="" class="w-[300px] h-[400px] object-contain mix-blend-screen -rotate-12">
+            </div>
+
+            <!-- Decorative Elements: Glowing Circle & Dots -->
+            <div class="absolute left-10 top-20 w-32 h-32 rounded-full border border-white/20 opacity-50 animate-float-delayed pointer-events-none z-0 hidden lg:block"></div>
+            <div class="absolute left-16 top-24 w-4 h-4 rounded-full bg-brand opacity-60 animate-float pointer-events-none z-0 hidden lg:block"></div>
+            <div class="absolute bottom-20 left-1/4 w-64 h-64 bg-dot-pattern opacity-20 pointer-events-none z-0 hidden lg:block" style="-webkit-mask-image: radial-gradient(circle, black 30%, transparent 70%);"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-20 fade-in-scroll">
+                    <h2 class="text-[clamp(2.25rem,4.5vw,3rem)] font-serif text-white mb-6">Что вы получите</h2>
+                    <p class="text-secondary text-lg md:text-xl max-w-2xl mx-auto mb-6">Полная раскладка вашей личности по ключевым параметрам.</p>
+                    <div class="w-16 h-1 bg-brand/60 mx-auto rounded-full"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Params 1 -->
+                    <div class="glass-card rounded-3xl p-8 fade-in-scroll hover-lift">
+                        <h3 class="text-2xl font-medium text-white mb-4 border-b border-white/10 pb-3">Психологические параметры</h3>
+                        <ul class="space-y-3 text-secondary text-base md:text-lg">
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Ведущие черты</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Темперамент</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Психическая стабильность</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Скрытые чувства</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Психосоматический профиль</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Конфликтные зоны</li>
+                        </ul>
+                    </div>
+
+                    <!-- Params 2 -->
+                    <div class="glass-card rounded-3xl p-8 fade-in-scroll hover-lift">
+                        <h3 class="text-2xl font-medium text-white mb-4 border-b border-white/10 pb-3">Когнитивные параметры</h3>
+                        <ul class="space-y-3 text-secondary text-base md:text-lg">
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Алгоритм принятия решений</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Прогностическая способность</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Реактивный потенциал</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Смысловые установки</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Ограничивающие убеждения</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Магическое мышление</li>
+                        </ul>
+                    </div>
+
+                    <!-- Params 3 -->
+                    <div class="glass-card rounded-3xl p-8 fade-in-scroll hover-lift">
+                        <h3 class="text-2xl font-medium text-white mb-4 border-b border-white/10 pb-3">Социальные параметры</h3>
+                        <ul class="space-y-3 text-secondary text-base md:text-lg">
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Модель доверия</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Сценарий отношений</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Семейная роль</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Лидерский потенциал</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Управляемость</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Гендерная реализация</li>
+                        </ul>
+                    </div>
+
+                    <!-- Params 4 -->
+                    <div class="glass-card rounded-3xl p-8 fade-in-scroll hover-lift">
+                        <h3 class="text-2xl font-medium text-white mb-4 border-b border-white/10 pb-3">Мотивационные параметры</h3>
+                        <ul class="space-y-3 text-secondary text-base md:text-lg">
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Скрытые драйверы</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Смысловые установки</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Ограничивающие убеждения</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Конфликтные зоны</li>
+                        </ul>
+                    </div>
+
+                    <!-- Params 5 -->
+                    <div class="glass-card rounded-3xl p-8 fade-in-scroll hover-lift">
+                        <h3 class="text-2xl font-medium text-white mb-4 border-b border-white/10 pb-3">Профессиональные параметры</h3>
+                        <ul class="space-y-3 text-secondary text-base md:text-lg">
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Профессиональный вектор</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Дисциплина и надежность</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Финансовые стратегии</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Лидерский потенциал</li>
+                        </ul>
+                    </div>
+
+                    <!-- Params 6 -->
+                    <div class="glass-card rounded-3xl p-8 fade-in-scroll hover-lift">
+                        <h3 class="text-2xl font-medium text-white mb-4 border-b border-white/10 pb-3">Параметры будущего</h3>
+                        <ul class="space-y-3 text-secondary text-base md:text-lg">
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Стратегический прогноз</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Кризисный прогноз</li>
+                            <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand mr-3 shadow-[0_0_8px_rgba(45,212,191,0.8)]"></span> Скрытые ресурсы</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Report Fragments -->
+        <section id="fragments" class="py-32 relative content-section overflow-hidden">
+            <!-- Decorative floating image (Crystal) -->
+            <div class="hidden lg:block absolute left-0 top-1/4 -translate-x-1/4 opacity-40 pointer-events-none z-0">
+                <img src="img/crystall.png" alt="Кристалл" class="w-[300px] h-[450px] object-contain mix-blend-screen -rotate-12 scale-110">
+            </div>
+
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-20 fade-in-scroll">
+                    <h2 class="text-[clamp(2.25rem,4.5vw,3rem)] font-serif text-white mb-6">Фрагменты заключения</h2>
+                    <p class="text-secondary text-lg md:text-xl max-w-2xl mx-auto mb-6">Примеры того, насколько глубоко мы погружаемся в анализ.</p>
+                    <div class="w-16 h-1 bg-brand/60 mx-auto rounded-full"></div>
+                </div>
+                
+                <div class="space-y-6 fade-in-scroll">
+                    <!-- Fragment 1 -->
+                    <details class="group bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 overflow-hidden shadow-lg hover:bg-white/15 transition-all duration-300" open>
+                        <summary class="flex justify-between items-start font-medium cursor-pointer list-none p-6 md:p-8 text-white hover:text-brand transition-colors focus-visible:outline-none">
+                            <div class="flex-1 pr-4">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <span class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-brand/20 text-brand font-serif text-lg border border-brand/30">6</span>
+                                    <span class="text-2xl font-serif">Я-концепция и самооценка</span>
+                                </div>
+                                <!-- Превью текста (3 строчки) -->
+                                <p class="text-white/70 text-base leading-relaxed line-clamp-3 group-open:hidden mt-3 pl-12">
+                                    Я-концепция - это то, что вы о себе знаете. Самооценка - как вы себя оцениваете. У вас есть противоречие: с одной стороны вы относитесь позитивно к себе, с другой стороны у вас есть скрытая депрессия... <span class="text-brand text-sm ml-1 underline decoration-brand/30 underline-offset-4">Читать далее</span>
+                                </p>
+                            </div>
+                            <span class="transition-transform duration-300 group-open:rotate-180 flex-shrink-0 bg-white/20 p-2 rounded-full mt-1">
+                                <svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <div class="text-secondary p-6 md:p-8 pt-0 pl-[5.5rem] leading-relaxed border-t border-white/10 text-base md:text-lg space-y-4">
+                                    <p class="text-white/90">Я-концепция - это то, что вы о себе знаете. Самооценка - как вы себя оцениваете. У вас есть противоречие: с одной стороны вы относитесь позитивно к себе, с другой стороны у вас есть скрытая депрессия и чувство неполноценности.</p>
+                                    <p class="text-white/90"><strong>Как вы оцениваете себя:</strong> Ваша самооценка построена на идее, что вы всем должны. Если вы соответствуете правилам, вы молодец, если нет — то нет. Без оценки других вы не понимаете, хорошая вы или нет.</p>
+                                    <div class="bg-white/10 p-5 rounded-xl mt-4 border-l-4 border-brand">
+                                        <strong class="block text-white mb-2">Что с этим делать:</strong>
+                                        <span class="text-white/80">Замечайте, чьего именно одобрения вы ждете. Взрослый человек может ошибаться, быть неудобным, но при этом оставаться уважаемым. Разрешите себе три вещи: ошибаться, не знать, не успевать. Ошибка - это не провал, а информация для исправления.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Fragment 2 -->
+                    <details class="group bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 overflow-hidden shadow-lg hover:bg-white/15 transition-all duration-300">
+                        <summary class="flex justify-between items-start font-medium cursor-pointer list-none p-6 md:p-8 text-white hover:text-brand transition-colors focus-visible:outline-none">
+                            <div class="flex-1 pr-4">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <span class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-brand/20 text-brand font-serif text-lg border border-brand/30">37</span>
+                                    <span class="text-2xl font-serif">Профессиональный вектор</span>
+                                </div>
+                                <p class="text-white/70 text-base leading-relaxed line-clamp-3 group-open:hidden mt-3 pl-12">
+                                    Где будет хорошо: Гуманитарные профессии, связанные с помощью, заботой, образованием. Ваша высокая чувствительность поможет вам терпеливо работать с другим человеком... <span class="text-brand text-sm ml-1 underline decoration-brand/30 underline-offset-4">Читать далее</span>
+                                </p>
+                            </div>
+                            <span class="transition-transform duration-300 group-open:rotate-180 flex-shrink-0 bg-white/20 p-2 rounded-full mt-1">
+                                <svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <div class="text-secondary p-6 md:p-8 pt-0 pl-[5.5rem] leading-relaxed border-t border-white/10 text-base md:text-lg space-y-4">
+                                    <p class="text-white/90"><strong>Где будет хорошо:</strong> Гуманитарные профессии, связанные с помощью, заботой, образованием. Ваша высокая чувствительность поможет вам терпеливо работать с другим человеком. Вы не склонны конкурировать.</p>
+                                    <p class="text-white/90">Также администрирование, но не руководство: вы умеете держать в голове много деталей, следить за сроками, но при этом вам не надо принимать жесткие решения, связанные с увольнением.</p>
+                                    <div class="bg-red-900/40 p-5 rounded-xl mt-4 border-l-4 border-red-400">
+                                        <strong class="block text-red-300 mb-2">Где вам будет тяжело:</strong>
+                                        <span class="text-white/80">Сфера с высокой конкуренцией, публичностью, критикой: продажи, руководство, политика. Там ваше желание быть хорошей практически недостижимо, и работа превратится в ад.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Fragment 3 -->
+                    <details class="group bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 overflow-hidden shadow-lg hover:bg-white/15 transition-all duration-300">
+                        <summary class="flex justify-between items-start font-medium cursor-pointer list-none p-6 md:p-8 text-white hover:text-brand transition-colors focus-visible:outline-none">
+                            <div class="flex-1 pr-4">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <span class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-brand/20 text-brand font-serif text-lg border border-brand/30">38</span>
+                                    <span class="text-2xl font-serif">Финансовые стратегии</span>
+                                </div>
+                                <p class="text-white/70 text-base leading-relaxed line-clamp-3 group-open:hidden mt-3 pl-12">
+                                    Ваша финансовая стратегия стоит на двух вещах: консервативности и зависимости. Благодаря консервативности, вы не рискуете в финансах и больше любите экономить... <span class="text-brand text-sm ml-1 underline decoration-brand/30 underline-offset-4">Читать далее</span>
+                                </p>
+                            </div>
+                            <span class="transition-transform duration-300 group-open:rotate-180 flex-shrink-0 bg-white/20 p-2 rounded-full mt-1">
+                                <svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <div class="text-secondary p-6 md:p-8 pt-0 pl-[5.5rem] leading-relaxed border-t border-white/10 text-base md:text-lg space-y-4">
+                                    <p class="text-white/90">Ваша финансовая стратегия стоит на двух вещах: консервативности и зависимости. Благодаря консервативности, вы не рискуете в финансах и больше любите экономить. Зависимость основана на том, что муж основной добытчик.</p>
+                                    <p class="text-white/90">Потенциал на увеличение дохода у вас сейчас низкий, потому что стратегия блокирует возможность роста. Чтобы зарабатывать больше, нужно уметь рисковать, себя презентовать, просить повышения. Это требует готовности быть заметной.</p>
+                                    <div class="bg-white/10 p-5 rounded-xl mt-4 border-l-4 border-brand">
+                                        <strong class="block text-white mb-2">Что с этим делать:</strong>
+                                        <span class="text-white/80">Постепенно увеличивайте вашу финансовую самостоятельность. Чтобы снизить внутренние барьеры к заработку, нужно избавиться от психологических блоков. Разрешите себе тратить на себя — это сигнал: я тоже важна.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Fragment 4 -->
+                    <details class="group bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 overflow-hidden shadow-lg hover:bg-white/15 transition-all duration-300">
+                        <summary class="flex justify-between items-start font-medium cursor-pointer list-none p-6 md:p-8 text-white hover:text-brand transition-colors focus-visible:outline-none">
+                            <div class="flex-1 pr-4">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <span class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-brand/20 text-brand font-serif text-lg border border-brand/30">41</span>
+                                    <span class="text-2xl font-serif">Сценарий отношений</span>
+                                </div>
+                                <p class="text-white/70 text-base leading-relaxed line-clamp-3 group-open:hidden mt-3 pl-12">
+                                    Ваш цикл повторяется по схеме: терпение – накопление – взрыв – вина – терпение. Вы выбираете сильного, но критикующего мужчину... <span class="text-brand text-sm ml-1 underline decoration-brand/30 underline-offset-4">Читать далее</span>
+                                </p>
+                            </div>
+                            <span class="transition-transform duration-300 group-open:rotate-180 flex-shrink-0 bg-white/20 p-2 rounded-full mt-1">
+                                <svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <div class="text-secondary p-6 md:p-8 pt-0 pl-[5.5rem] leading-relaxed border-t border-white/10 text-base md:text-lg space-y-4">
+                                    <p class="text-white/90">Ваш цикл повторяется по схеме: <strong>терпение – накопление – взрыв – вина – терпение</strong>.</p>
+                                    <p class="text-white/90">Вы выбираете сильного, но критикующего мужчину. Вы начинаете угождать, подстраиваться и терпеть. Когда терпение заканчивается, вы срываетесь, затем приходит чувство вины.</p>
+                                    <div class="bg-white/10 p-5 rounded-xl mt-4 border-l-4 border-brand">
+                                        <strong class="block text-white mb-2">Что с этим делать:</strong>
+                                        <span class="text-white/80">Работать над своей внутренней опорой. Понять, что вы не только социальная роль, вы отдельный человек. Здоровая зависимость отличается от патологической: вы можете опираться на партнера, но не падать без него.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Fragment 5 -->
+                    <details class="group bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 overflow-hidden shadow-lg hover:bg-white/15 transition-all duration-300">
+                        <summary class="flex justify-between items-start font-medium cursor-pointer list-none p-6 md:p-8 text-white hover:text-brand transition-colors focus-visible:outline-none">
+                            <div class="flex-1 pr-4">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <span class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-brand/20 text-brand font-serif text-lg border border-brand/30">45</span>
+                                    <span class="text-2xl font-serif">Стратегический прогноз</span>
+                                </div>
+                                <p class="text-white/70 text-base leading-relaxed line-clamp-3 group-open:hidden mt-3 pl-12">
+                                    У вас есть два пути. Если оставить всё как есть: усиление соматизации (перенос нагрузки на тело), эмоциональное выгорание к 40-42 годам, отсутствие радости... <span class="text-brand text-sm ml-1 underline decoration-brand/30 underline-offset-4">Читать далее</span>
+                                </p>
+                            </div>
+                            <span class="transition-transform duration-300 group-open:rotate-180 flex-shrink-0 bg-white/20 p-2 rounded-full mt-1">
+                                <svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <div class="text-secondary p-6 md:p-8 pt-0 pl-[5.5rem] leading-relaxed border-t border-white/10 text-base md:text-lg space-y-4">
+                                    <p class="text-white/90">У вас есть два пути. Если оставить всё как есть: усиление соматизации (перенос нагрузки на тело), эмоциональное выгорание к 40-42 годам, отсутствие радости, ухудшение отношений с мужем.</p>
+                                    <div class="bg-green-900/40 p-5 rounded-xl mt-4 border-l-4 border-green-400">
+                                        <strong class="block text-green-300 mb-2">Что может измениться, если скорректировать путь:</strong>
+                                        <span class="text-white/80">Выход из зависимой позиции. Вы научитесь опираться на себя, принимать решения самостоятельно. Улучшение отношений через осознание агрессии. Вы останетесь в браке не из страха, а потому что этого хотите.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Fragment 6 -->
+                    <details class="group bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 overflow-hidden shadow-lg hover:bg-white/15 transition-all duration-300">
+                        <summary class="flex justify-between items-start font-medium cursor-pointer list-none p-6 md:p-8 text-white hover:text-brand transition-colors focus-visible:outline-none">
+                            <div class="flex-1 pr-4">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <span class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-brand/20 text-brand font-serif text-lg border border-brand/30">47</span>
+                                    <span class="text-2xl font-serif">Скрытые ресурсы</span>
+                                </div>
+                                <p class="text-white/70 text-base leading-relaxed line-clamp-3 group-open:hidden mt-3 pl-12">
+                                    Огромный запас энергии: Вся она сливается на подавление себя. Если перестанете тратить эту мощь на самооборону, вы удивитесь, как много можете. Способность к эмпатии... <span class="text-brand text-sm ml-1 underline decoration-brand/30 underline-offset-4">Читать далее</span>
+                                </p>
+                            </div>
+                            <span class="transition-transform duration-300 group-open:rotate-180 flex-shrink-0 bg-white/20 p-2 rounded-full mt-1">
+                                <svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="accordion-content">
+                            <div class="accordion-inner">
+                                <div class="text-secondary p-6 md:p-8 pt-0 pl-[5.5rem] leading-relaxed border-t border-white/10 text-base md:text-lg space-y-4">
+                                    <p class="text-white/90"><strong>Огромный запас энергии:</strong> Вся она сливается на подавление себя. Если перестанете тратить эту мощь на самооборону, вы удивитесь, как много можете.</p>
+                                    <p class="text-white/90"><strong>Способность к эмпатии:</strong> Вы замечаете то, чего не видят другие. В мире, где каждый занят собой, это огромная ценность.</p>
+                                    <p class="text-white/90"><strong>Надежность:</strong> На вас можно положиться. Но ваш перфекционизм работает против вас — учитесь отличать «хорошо» от «идеально».</p>
+                                    <div class="bg-white/10 p-5 rounded-xl mt-4 border-l-4 border-brand">
+                                        <strong class="block text-white mb-2">Коротко:</strong>
+                                        <span class="text-white/80">Вы не слабый человек, у вас есть мощные внутренние опоры. Ваша задача не создавать ресурсы заново, а перенаправить их в нужное русло.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials / Stories -->
+        <section class="py-32 relative content-section overflow-hidden bg-black/10 border-y border-white/5 shadow-2xl backdrop-blur-sm">
+            <!-- Decorative floating images -->
+            <div class="hidden lg:block absolute right-0 top-1/4 -translate-y-1/2 translate-x-1/4 opacity-30 pointer-events-none z-0">
+                <img src="img/abs1_right.png" alt="" class="w-[350px] h-[450px] object-contain mix-blend-screen rotate-12">
+            </div>
+            <div class="hidden lg:block absolute left-0 top-3/4 -translate-y-1/2 -translate-x-1/4 opacity-30 pointer-events-none z-0">
+                <img src="img/abs2_left.png" alt="" class="w-[300px] h-[400px] object-contain mix-blend-screen -rotate-6">
+            </div>
+
+            <!-- Decorative Lines Background -->
+            <div class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-20">
+                <div class="absolute left-[10%] top-0 w-[1px] h-full bg-gradient-to-b from-transparent via-white to-transparent"></div>
+                <div class="absolute left-[50%] top-0 w-[1px] h-full bg-gradient-to-b from-transparent via-brand to-transparent opacity-50"></div>
+                <div class="absolute left-[90%] top-0 w-[1px] h-full bg-gradient-to-b from-transparent via-white to-transparent"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-20 fade-in-scroll">
+                    <h2 class="text-[clamp(2.25rem,4.5vw,3rem)] font-serif text-white mb-6">Реальные истории людей</h2>
+                    <div class="w-16 h-1 bg-brand/60 mx-auto rounded-full"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Story 1 -->
+                    <div class="glass-card p-10 rounded-[2rem] relative fade-in-scroll hover-lift" style="--animation-order: 1;">
+                        <div class="text-brand text-8xl font-serif absolute -top-2 left-6 opacity-20 leading-none">"</div>
+                        <h4 class="font-medium text-lg text-white mb-4 relative z-10">Про «сломанный компас»</h4>
+                        <p class="text-secondary text-base md:text-lg relative z-10 mb-8 leading-relaxed italic">«Я чувствовал, что иду куда-то не туда. Диагностика стала для меня анализом смыслов. Тесты показали большой разрыв между моей природой и тем, чем я занимаюсь. В результате я понял, что я делаю легко, а что с помощью навязанной дисциплины, которая меня разрушала.»</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-white/10 mr-4 flex items-center justify-center text-brand font-medium text-lg shadow-inner border border-white/5">И</div>
+                            <div>
+                                <p class="font-medium text-white">Игорь</p>
+                                <p class="text-sm text-gray-300">38 лет, собственник бизнеса</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Story 2 -->
+                    <div class="glass-card p-10 rounded-[2rem] relative fade-in-scroll hover-lift" style="--animation-order: 2;">
+                        <div class="text-brand text-8xl font-serif absolute -top-2 left-6 opacity-20 leading-none">"</div>
+                        <h4 class="font-medium text-lg text-white mb-4 relative z-10">Про «невидимый тормоз»</h4>
+                        <p class="text-secondary text-base md:text-lg relative z-10 mb-8 leading-relaxed italic">«Я думала, что я ленивая. Оказалось, сил нет из-за внутреннего конфликта: желание быть хорошей блокировало серьезные дела. В отчете я увидела свои автоматические реакции и теперь понимаю, что внутри меня выключает энергию, и могу этим управлять.»</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-white/10 mr-4 flex items-center justify-center text-brand font-medium text-lg shadow-inner border border-white/5">М</div>
+                            <div>
+                                <p class="font-medium text-white">Марина</p>
+                                <p class="text-sm text-gray-300">31 год, маркетолог</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Story 3 -->
+                    <div class="glass-card p-10 rounded-[2rem] relative fade-in-scroll hover-lift" style="--animation-order: 3;">
+                        <div class="text-brand text-8xl font-serif absolute -top-2 left-6 opacity-20 leading-none">"</div>
+                        <h4 class="font-medium text-lg text-white mb-4 relative z-10">Про «чужой сценарий»</h4>
+                        <p class="text-secondary text-base md:text-lg relative z-10 mb-8 leading-relaxed italic">«В середине жизни я запуталась. Мы обнаружили, что мой выбор когда-то был сделан из дефицита безопасности. Мой ресурс — в творчестве, которое я подавляла 20 лет. Я получила инструкцию к самой себе: на что опираться в следующие 40 лет.»</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-white/10 mr-4 flex items-center justify-center text-brand font-medium text-lg shadow-inner border border-white/5">О</div>
+                            <div>
+                                <p class="font-medium text-white">Ольга</p>
+                                <p class="text-sm text-gray-300">45 лет, юрист</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process -->
+        <section id="process" class="py-32 content-section relative overflow-hidden">
+            <!-- Decorative floating image -->
+            <div class="hidden lg:block absolute right-0 top-1/3 -translate-y-1/2 translate-x-1/4 opacity-30 pointer-events-none z-0">
+                <img src="img/abs2_right.png" alt="" class="w-[350px] h-[450px] object-contain mix-blend-screen rotate-6">
+            </div>
+            <div class="hidden lg:block absolute left-0 top-2/3 -translate-y-1/2 -translate-x-1/4 opacity-30 pointer-events-none z-0">
+                <img src="img/abs3_left.png" alt="" class="w-[300px] h-[400px] object-contain mix-blend-screen -rotate-12">
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-20 fade-in-scroll">
+                    <h2 class="text-[clamp(2.25rem,4.5vw,3rem)] font-serif text-white mb-6">Как все происходит</h2>
+                    <div class="w-16 h-1 bg-brand/60 mx-auto rounded-full"></div>
+                </div>
+                
+                <div class="relative max-w-4xl mx-auto">
+                    <!-- Line -->
+                    <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-brand/30 to-transparent"></div>
+                    
+                    <div class="space-y-16">
+                        <!-- Step 1 -->
+                        <div class="relative flex items-center justify-between md:justify-normal flex-col md:flex-row fade-in-scroll">
+                            <div class="md:w-1/2 mb-6 md:mb-0 md:pr-16 text-center md:text-right">
+                                <h3 class="text-2xl font-medium text-white mb-3">Вводная встреча</h3>
+                                <p class="text-secondary text-base md:text-lg leading-relaxed">20–30 минут, чтобы вы могли честно рассказать, что идет не так и что хотите изменить. На этом этапе мы формулируем ваш запрос.</p>
+                            </div>
+                            <div class="relative flex items-center justify-center z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                                <div class="w-12 h-12 rounded-full bg-white/10 border border-brand/50 shadow-[0_0_15px_rgba(45,212,191,0.2)] flex items-center justify-center text-brand font-serif text-lg backdrop-blur-md">1</div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-16 hidden md:block"></div>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div class="relative flex items-center justify-between md:justify-normal flex-col md:flex-row-reverse fade-in-scroll">
+                            <div class="md:w-1/2 mb-6 md:mb-0 md:pl-16 text-center md:text-left">
+                                <h3 class="text-2xl font-medium text-white mb-3">Комплексное тестирование</h3>
+                                <p class="text-secondary text-base md:text-lg leading-relaxed">Вы проходите профессиональный пакет тестов. Это не гадание, а научный инструмент, который показывает объективную картину вашей личности.</p>
+                            </div>
+                            <div class="relative flex items-center justify-center z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                                <div class="w-12 h-12 rounded-full bg-white/10 border border-brand/50 shadow-[0_0_15px_rgba(45,212,191,0.2)] flex items-center justify-center text-brand font-serif text-lg backdrop-blur-md">2</div>
+                            </div>
+                            <div class="md:w-1/2 md:pr-16 hidden md:block"></div>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div class="relative flex items-center justify-between md:justify-normal flex-col md:flex-row fade-in-scroll">
+                            <div class="md:w-1/2 mb-6 md:mb-0 md:pr-16 text-center md:text-right">
+                                <h3 class="text-2xl font-medium text-white mb-3">Аналитика и саморефлексия</h3>
+                                <p class="text-secondary text-base md:text-lg leading-relaxed">Вы получаете обработанные результаты и изучаете их в своем темпе, соотнося паттерны с реальными событиями из жизни.</p>
+                            </div>
+                            <div class="relative flex items-center justify-center z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                                <div class="w-12 h-12 rounded-full bg-white/10 border border-brand/50 shadow-[0_0_15px_rgba(45,212,191,0.2)] flex items-center justify-center text-brand font-serif text-lg backdrop-blur-md">3</div>
+                            </div>
+                            <div class="md:w-1/2 md:pl-16 hidden md:block"></div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="relative flex items-center justify-between md:justify-normal flex-col md:flex-row-reverse fade-in-scroll">
+                            <div class="md:w-1/2 mb-6 md:mb-0 md:pl-16 text-center md:text-left">
+                                <h3 class="text-2xl font-medium text-white mb-3">Разбор и стратегия перемен</h3>
+                                <p class="text-secondary text-base md:text-lg leading-relaxed">На итоговой 60-минутной сессии мы превращаем данные в понятный план действий. Это момент, когда пазл наконец-то складывается.</p>
+                            </div>
+                            <div class="relative flex items-center justify-center z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                                <div class="w-12 h-12 rounded-full bg-white/10 border border-brand/50 shadow-[0_0_15px_rgba(45,212,191,0.2)] flex items-center justify-center text-brand font-serif text-lg backdrop-blur-md">4</div>
+                            </div>
+                            <div class="md:w-1/2 md:pr-16 hidden md:block"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-20 text-center fade-in-scroll">
+                    <a href="https://vk.com/" target="_blank" class="btn-premium inline-block px-10 py-5 text-lg font-medium rounded-full text-gray-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand">
+                        Записаться на диагностику
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/20 text-white py-16 border-t border-white/10 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <img class="h-10 w-auto object-contain opacity-80 mb-6" src="img/logo.png" alt="Логотип" loading="lazy" decoding="async" onerror="this.src='https://placehold.co/150x50/2A3439/8F9B9A?text=Логотип'">
+                    <p class="text-gray-200 text-sm leading-relaxed">Профессиональная психологическая диагностика онлайн.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-medium mb-6 text-white/90">Навигация</h4>
+                    <ul class="space-y-3 text-base text-gray-200">
+                        <li><a href="#about" class="hover:text-brand transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-sm">Вам это знакомо?</a></li>
+                        <li><a href="#results" class="hover:text-brand transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-sm">Результат</a></li>
+                        <li><a href="#process" class="hover:text-brand transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-sm">Как проходит</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-medium mb-6 text-white/90">Связь</h4>
+                    <a href="https://vk.com/" target="_blank" class="inline-flex items-center text-sm text-brand hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand rounded-sm p-1 -ml-1">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.074 4.805C14.73 4.708 13.902 4.5 12 4.5s-2.73.208-3.074.305c-.344.097-.689.292-.934.536-.245.245-.44.59-.536.934C7.359 6.619 7.152 7.447 7.152 9.349s.207 2.73.304 3.074c.097.344.292.689.536.934.245.245.59.44.934.536.344.097 1.172.305 3.074.305s2.73-.208 3.074-.305c.344-.097.689-.292.934-.536.245-.245.44-.59.536-.934.097-.344.304-1.172.304-3.074s-.207-2.73-.304-3.074c-.097-.344-.292-.689-.536-.934-.245-.245-.59-.44-.934-.536-.245-.245-.59-.44-.934-.536zm-2.457 7.37c-.326.155-.708.243-1.117.243-.41 0-.791-.088-1.117-.243-.326-.155-.595-.386-.786-.677-.191-.291-.297-.643-.297-1.018 0-.375.106-.727.297-1.018.191-.291.46-.522.786-.677.326-.155.707-.243 1.117-.243.409 0 .791.088 1.117.243.326.155.595.386.786.677.191.291.297.643.297 1.018 0 .375-.106.727-.297 1.018-.191.291-.46.522-.786.677zm1.884-2.822c-.138.138-.332.222-.544.222-.192 0-.368-.073-.502-.196a1.597 1.597 0 00-1.455-.407 1.597 1.597 0 00-1.077.925 1.597 1.597 0 00-.063 1.15c.088.247.243.46.44.607.198.147.44.225.694.225.212 0 .406-.084.544-.222.138-.138.222-.332.222-.544 0-.192-.073-.368-.196-.502a1.597 1.597 0 01-.407-1.455c.105-.395.353-.733.7-.926.346-.192.76-.234 1.135-.116.247.088.46.243.607.44.147.198.225.44.225.694 0 .212-.084.406-.222.544z"/></svg>
+                        Написать ВКонтакте
+                    </a>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/20 text-base text-gray-300 flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2026 Психологическая диагностика. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
